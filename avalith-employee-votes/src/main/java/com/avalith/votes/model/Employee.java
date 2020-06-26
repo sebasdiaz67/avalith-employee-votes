@@ -29,6 +29,7 @@ public class Employee implements Serializable {
 	private String lastName;
 	private String userName;
 	private String password;
+	private String role;
 	private String userCreate;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreate;

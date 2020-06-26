@@ -34,16 +34,22 @@ public class EmployeeRestController {
 
 	@Autowired
 	private EmployeeService employeeService;
-	
+
 	@GetMapping("/employees")
-	@ApiOperation(value = "Find all", notes = "Service to find thea areas")
+	@ApiOperation(value = "Find all", notes = "Service to find the employees")
 	public List<Employee> findAll() {
 		log.info("muestra todos los empleados");
 		return employeeService.findAll();
 	}
-	
+
+	@GetMapping("/employees/count-employees")
+	@ApiOperation(value = "Count the employees register", notes = "Service to find the size employees register")
+	public ResponseEntity<?> findAllEmployees() {
+		return ResponseEntity.ok().body(employeeService.findAll().size());
+	}
+
 	@GetMapping("/employees/{id}")
-	@ApiOperation(value = "Find by id", notes = "Service to find the area by id")
+	@ApiOperation(value = "Find by id", notes = "Service to find the employee by id")
 	public ResponseEntity<?> findById(@PathVariable String id) {
 		Employee employeeBDD = null;
 		Map<String, Object> response = new HashMap<>();
@@ -60,7 +66,7 @@ public class EmployeeRestController {
 		}
 		return new ResponseEntity<>(employeeBDD, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/employees")
 	@ApiOperation(value = "Create", notes = "Service to save the employee")
 	public ResponseEntity<?> create(@RequestBody EmployeeVO employeeRequest) {

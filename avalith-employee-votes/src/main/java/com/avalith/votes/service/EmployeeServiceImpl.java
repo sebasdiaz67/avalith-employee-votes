@@ -55,11 +55,15 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService 
 		Employee emp = employeeRepository.findByUserName(username);
 
 		List<GrantedAuthority> roles = new ArrayList<>();
-		roles.add(new SimpleGrantedAuthority("ADMIN"));
-		roles.add(new SimpleGrantedAuthority("EMPLOYEE"));
+		roles.add(new SimpleGrantedAuthority(emp.getRole()));
 
 		UserDetails userDet = new User(emp.getUserName(), emp.getPassword(), roles);
 		return userDet;
+	}
+
+	@Override
+	public List<Employee> findAllEmployees(String username) {
+		return employeeRepository.findAllEmployees(username);
 	}
 
 }
